@@ -99,12 +99,12 @@ foreInnerTemplate = $('#forecast_inner').html();
 
 // Object API variables will go in
 context = { 
-"city": "", 
-"state": "",
-"day": "",
-"time": "",
-"weather": ""
-};
+		"city": "", 
+		"state": "",
+		"day": "",
+		"time": "",
+		"weather": ""
+		};
 
 // Compile the templates' data into a function
 currTempScript = Handlebars.compile(currentTemplate);
