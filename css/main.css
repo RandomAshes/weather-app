@@ -1,7 +1,6 @@
-.wrap {
-	width: 70%;
-	margin: 0 auto;
-}
+/********************************
+      Weather App Styles
+********************************/
 
 body {
 	background-image: url('../img/landscape.png');
@@ -10,7 +9,13 @@ body {
 	font-family: 'Exo', sans-serif;
 }
 
-/* HEADER */
+.wrap {
+	width: 70%;
+	margin: 0 auto;
+}
+
+/* HEADER: Page title and Input */
+
 header {
 	text-align: center;
 	border-bottom: solid 1px #222;
@@ -28,7 +33,6 @@ input {
 	padding-left: 10px;
 }
 
-
 /* MAIN */
 
 section {
@@ -38,16 +42,25 @@ section {
 	flex-wrap: wrap;
 }
 
+#weatherImage {
+	display: inline-block;
+	margin: 0 10px;
+	vertical-align: middle;
+}
+
+/* Current Weather */
+
+#current {
+	width: 300px;
+}
+
 #current,
 #forecast {
 	height: 390px;
 	margin: 40px 10px;
 }
 
-#current {
-	text-align: center;
-	width: 300px;
-}
+/* 10-day Forecast */
 
 #forecast {
 	width: 350px;
@@ -59,19 +72,17 @@ section {
 	padding: 10px;
 }
 
-#weatherImage {
-	display: inline-block;
-	margin: 0 10px;
-	vertical-align: middle;
-}
 
+#current,
+footer {
+	text-align: center;
+}
 
 
 /* FOOTER */
 
 footer {
 	margin-top: 30px;
-	text-align: center;
 }
 
 footer img {

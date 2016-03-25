@@ -1,61 +1,51 @@
 //------------------------------
-// Weather and Forecast app
+// Weather and Forecast App
 //------------------------------
 
 // VARIABLES
 
-// variable strings
-var txtForecast
-var simple
-
-// variable info
+var txtForecast;
+var simple;
 var time;
 var day;
 var weather;
 var icon;
-
-var today;
 var html;
-
 var url;
 var state;
 var city;
-var weatherInfo;
-
-
-var input;
-
 
 //------------------------------
 // UPDATE WEATHER
 //------------------------------
 
+
+// Get Weather Function
 function getWeather() {
 
-	console.log("request sent")
-	// city = "Howell";
-	// state = "Mi";
-
-	url = "http://api.wunderground.com/api/59a1e94d23db4135/forecast10day/q/"
+	// Concatenate state and city into API url
+	url = "http://api.wunderground.com/api/59a1e94d23db4135/forecast10day/q/";
 	url += state + '/' + city + '.json';
 
+	// API Request
 	$.getJSON(url, function(weatherInfo){
+
 			// Get to txt-forecast
-			txtForecast = weatherInfo["forecast"]["txt_forecast"]["forecastday"];
+			txtForecast = weatherInfo.forecast.txt_forecast.forecastday;
 			// Get to simple-forecast
-			simple = weatherInfo["forecast"]["simpleforecast"]["forecastday"];
+			simple = weatherInfo.forecast.simpleforecast.forecastday;
 
 			//------------------------------
 			// CURRENT Weather Info
 			//------------------------------
 
-			// Get Info
-			time = weatherInfo["forecast"]["txt_forecast"]["date"];
-			day = txtForecast[0]["title"];
-			weather = txtForecast[0]["fcttext"];
-			icon = txtForecast[0]["icon_url"];
+			// Current: Get Info
+			time = weatherInfo.forecast.txt_forecast.date;
+			day = txtForecast[0].title;
+			weather = txtForecast[0].fcttext;
+			icon = txtForecast[0].icon_url;
 
-			// Concatenate Info
+			// Current: Concatenate Info
 			html = '<h3>Today\'s Weather:</h3>';
 			html += '<h1>' + city + ', ' + state + '</h1>';
 			html += '	<h3 id="today">';
@@ -68,32 +58,30 @@ function getWeather() {
 			html += weather;
 			html += '</p>';
 
-			// Append info to HTML
+			// Current: Append info to HTML
 			$("#current").append(html);
 
 			//------------------------------
 			// 10-day FORECAST
 			//------------------------------
 
-
-			// Append Header and Div
+			// forecast: Append Header and Div
 			html = '<h3>Forecast for the next 10 days:</h3>';
 			html += '<div id="scrollBox">';
 			html += '</div>';
 
 			$("#forecast").append(html);
 
-
-			// Loop for each day's info
+			// forecast: loop for each day's info
 
 			for (i = 0; i < 19; i += 2) {
 
-					// Get info
-					day = txtForecast[i]["title"];
-					weather = txtForecast[i]["fcttext"];
-					icon = txtForecast[i]["icon_url"];
+					// forecast: Get info
+					day = txtForecast[i].title;
+					weather = txtForecast[i].fcttext;
+					icon = txtForecast[i].icon_url;
 
-					// Concatenate info
+					// forecast: Concatenate info
 					html = '<h3 id="theDay">';
 					html += day;
 					html += '</h3>';
@@ -104,27 +92,50 @@ function getWeather() {
 					html += weather;
 					html += '</p>';
 
-					// Append info to HTML
+					// forecast: Append info to HTML
 					$("#scrollBox").append(html);
 					console.log(html);
 			}
 	});
 }
 
+// When GO button is clicked
 $("#button").click( function(event){
 	event.preventDefault();
-	//Get city input
-	city = $("#input_city").val();
-	$("#input_city").val('');
-	//Get state input
-	state = $("#input_state").val();
-	$("#input_state").val('');
-	// Clear Weather Info if there is any
-	$("#current").empty();
-	$("#forecast").empty();
 
+	//Get CITY input
+	city = $("#input_city").val();
+	//Get STATE input
+	state = $("#input_state").val();
+
+	// If both CITY and STATE input
+	// are filled out, then update weather 
 	if (city !== '' && state !== '') {
+
+		$("#input_city").val('');
+		$("#input_state").val('');
+
+		$("#input_city").css("border", "2px inset");
+		$("#input_state").css("border", "2px inset");
+
+		// Clear HTML Weather info
+		//if there is any
+		$("#current").empty();
+		$("#forecast").empty();
+
 		getWeather();
+
+		// if STATE input is empty, alert user
+	} else if ( state === '' ) {
+
+		$("#input_state").css("border", "solid 2px #CC0000").focus();
+		$("#input_city").css("border", "2px inset");
+
+		// if CITY input is empty, alert user
+	} else if ( city === '' ) {
+
+		$("#input_city").css("border", "solid 2px #CC0000").focus();
+		$("#input_state").css("border", "2px inset");
 	}
-})
+});
 
