@@ -38,53 +38,53 @@ function getWeather() {
 	// API Request
 	$.getJSON(url, function(weatherInfo){
 
-			// Get to txt-forecast
-			txtForecast = weatherInfo.forecast.txt_forecast.forecastday;
-			// Get to simple-forecast
-			simple = weatherInfo.forecast.simpleforecast.forecastday;
+		// Get to txt-forecast
+		txtForecast = weatherInfo.forecast.txt_forecast.forecastday;
+		// Get to simple-forecast
+		simple = weatherInfo.forecast.simpleforecast.forecastday;
 
-			//------------------------------
-			// CURRENT Weather Info
-			//------------------------------
+		//------------------------------
+		// CURRENT Weather Info
+		//------------------------------
 
-			// Current: Get Info
-			context.time = weatherInfo.forecast.txt_forecast.date;
-			context.day = txtForecast[0].title;
-			context.weather = txtForecast[0].fcttext;
-			context.icon = txtForecast[0].icon_url;
+		// Current: Get Info
+		context.time = weatherInfo.forecast.txt_forecast.date;
+		context.day = txtForecast[0].title;
+		context.weather = txtForecast[0].fcttext;
+		context.icon = txtForecast[0].icon_url;
 
-			currHTML = currTempScript(context);
+		currHTML = currTempScript(context);
 
-			$("#current").append(currHTML);
+		$("#current").append(currHTML);
 
-			//------------------------------
-			// 10-day FORECAST
-			//------------------------------
+		//------------------------------
+		// 10-day FORECAST
+		//------------------------------
 
-			// Forecast Title and Scrollbox
-			//------------------------------
+		// Forecast Title and Scrollbox
+		//------------------------------
 
-			foreHTML = foreTempScript(context);	
-			// Append #forecast_content script
-			$("#forecast").append(foreHTML);
+		foreHTML = foreTempScript(context);	
+		// Append #forecast_content script
+		$("#forecast").append(foreHTML);
 
 
-			// Scrollbox: 10-day Weather
-			//------------------------------	
+		// Scrollbox: 10-day Weather
+		//------------------------------	
 
-			// 10-day forecast: loop for each day's info
-			for (i = 0; i < 19; i += 2) {
+		// 10-day forecast: loop for each day's info
+		for (i = 0; i < 19; i += 2) {
 
-				// forecast: Get info from API 
-				context.day = txtForecast[i].title;
-				context.weather = txtForecast[i].fcttext;
-				context.icon = txtForecast[i].icon_url;
-			
-				foreInnHTML = foreInnTempScript(context);
+			// forecast: Get info from API 
+			context.day = txtForecast[i].title;
+			context.weather = txtForecast[i].fcttext;
+			context.icon = txtForecast[i].icon_url;
+		
+			foreInnHTML = foreInnTempScript(context);
 
-				// Append scrollbox content
-				$("#scrollBox").append(foreInnHTML);
-			}
+			// Append scrollbox content
+			$("#scrollBox").append(foreInnHTML);
+		}
 	});
 }
 
@@ -98,12 +98,13 @@ forecastTemplate = $('#forecast_content').html();
 foreInnerTemplate = $('#forecast_inner').html();
 
 // Object API variables will go in
-context = { "city" : "", 
-						"state" : "",
-						"day": "",
-						"time":"",
-						"weather": ""
-					};
+context = { 
+"city": "", 
+"state": "",
+"day": "",
+"time": "",
+"weather": ""
+};
 
 // Compile the templates' data into a function
 currTempScript = Handlebars.compile(currentTemplate);
