@@ -1,0 +1,80 @@
+.wrap {
+	width: 70%;
+	margin: 0 auto;
+}
+
+body {
+	background-image: url('../img/landscape.png');
+	background-size: cover;
+	line-height: 1.8em;
+	font-family: 'Exo', sans-serif;
+}
+
+/* HEADER */
+header {
+	text-align: center;
+	border-bottom: solid 1px #222;
+}
+
+header h1 {
+	font-size: 1.5em;
+}
+
+form {
+	margin-bottom: 15px;
+}
+
+input {
+	padding-left: 10px;
+}
+
+
+/* MAIN */
+
+section {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+#current,
+#forecast {
+	height: 390px;
+	margin: 40px 10px;
+}
+
+#current {
+	text-align: center;
+	width: 300px;
+}
+
+#forecast {
+	width: 350px;
+}
+
+#scrollBox {
+	height: 280px;
+	overflow: scroll;
+	padding: 10px;
+}
+
+#weatherImage {
+	display: inline-block;
+	margin: 0 10px;
+	vertical-align: middle;
+}
+
+
+
+/* FOOTER */
+
+footer {
+	margin-top: 30px;
+	text-align: center;
+}
+
+footer img {
+	width: 100px;
+	margin-bottom: 20px;
+}

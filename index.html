@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Current Weather and Forcast App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://fonts.googleapis.com/css?family=Exo:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body class="wrap">
+
+	<header>
+		<h1>Current Weather and 10-day Forecast</h1>
+		<form id="form">
+			<label for="input_city">Enter</label>
+			<input type="text" id="input_city" name="search" placeholder="city" required>
+			<label for="input_state"> and </label>
+			<input type="text" id="input_state" name="search" placeholder="state" required>
+			<button form="form" id="button">GO</button>
+		</form>
+	</header>
+
+	<section>
+		<div id="current"></div>
+		<div id='forecast'></div>
+	</section>
+
+	<footer>
+		<img src="img/wundergroundLogo_4c_horz.png">
+	</footer>
+
+	<script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
