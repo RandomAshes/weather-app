@@ -6,14 +6,22 @@
 
 var txtForecast;
 var simple;
-var time;
-var day;
-var weather;
-var icon;
-var html;
 var url;
-var state;
-var city;
+
+var context;
+
+var currentTemplate;
+var forecastTemplate;
+var foreInnerTemplate;
+
+var currTempScript;
+var foreTempScript;
+var foreInnTempScript;
+
+var foreInnHTML;
+var foreHTML;
+var currHTML;
+
 
 //------------------------------
 // UPDATE WEATHER
@@ -25,7 +33,7 @@ function getWeather() {
 
 	// Concatenate state and city into API url
 	url = "http://api.wunderground.com/api/59a1e94d23db4135/forecast10day/q/";
-	url += state + '/' + city + '.json';
+	url += context.state + '/' + context.city + '.json';
 
 	// API Request
 	$.getJSON(url, function(weatherInfo){
@@ -40,77 +48,86 @@ function getWeather() {
 			//------------------------------
 
 			// Current: Get Info
-			time = weatherInfo.forecast.txt_forecast.date;
-			day = txtForecast[0].title;
-			weather = txtForecast[0].fcttext;
-			icon = txtForecast[0].icon_url;
+			context.time = weatherInfo.forecast.txt_forecast.date;
+			context.day = txtForecast[0].title;
+			context.weather = txtForecast[0].fcttext;
+			context.icon = txtForecast[0].icon_url;
 
-			// Current: Concatenate Info
-			html = '<h3>Today\'s Weather:</h3>';
-			html += '<h1>' + city + ', ' + state + '</h1>';
-			html += '	<h3 id="today">';
-			html += day + ' ' + time;
-			html += '</h3>';
-			html += '<img id="weatherImage" src="';
-			html += icon;
-			html += '">';
-			html += '<p id="currentWeather">';
-			html += weather;
-			html += '</p>';
+			currHTML = currTempScript(context);
 
-			// Current: Append info to HTML
-			$("#current").append(html);
+			$("#current").append(currHTML);
 
 			//------------------------------
 			// 10-day FORECAST
 			//------------------------------
 
-			// forecast: Append Header and Div
-			html = '<h3>Forecast for the next 10 days:</h3>';
-			html += '<div id="scrollBox">';
-			html += '</div>';
+			// Forecast Title and Scrollbox
+			//------------------------------
 
-			$("#forecast").append(html);
+			foreHTML = foreTempScript(context);	
+			// Append #forecast_content script
+			$("#forecast").append(foreHTML);
 
-			// forecast: loop for each day's info
 
+			// Scrollbox: 10-day Weather
+			//------------------------------	
+
+			// 10-day forecast: loop for each day's info
 			for (i = 0; i < 19; i += 2) {
 
-					// forecast: Get info
-					day = txtForecast[i].title;
-					weather = txtForecast[i].fcttext;
-					icon = txtForecast[i].icon_url;
+				// forecast: Get info from API 
+				context.day = txtForecast[i].title;
+				context.weather = txtForecast[i].fcttext;
+				context.icon = txtForecast[i].icon_url;
+			
+				foreInnHTML = foreInnTempScript(context);
 
-					// forecast: Concatenate info
-					html = '<h3 id="theDay">';
-					html += day;
-					html += '</h3>';
-					html += '<img id="weatherImage" src="';
-					html += icon;
-					html += '">';
-					html += '<p id="currentWeather">';
-					html += weather;
-					html += '</p>';
-
-					// forecast: Append info to HTML
-					$("#scrollBox").append(html);
-					console.log(html);
+				// Append scrollbox content
+				$("#scrollBox").append(foreInnHTML);
 			}
 	});
 }
+
+//------------------------------
+// HANDLEBARS
+//------------------------------
+
+// Retrieve the template data from the HTML
+currentTemplate = $('#current_content').html();
+forecastTemplate = $('#forecast_content').html();
+foreInnerTemplate = $('#forecast_inner').html();
+
+// Object API variables will go in
+context = { "city" : "", 
+						"state" : "",
+						"day": "",
+						"time":"",
+						"weather": ""
+					};
+
+// Compile the templates' data into a function
+currTempScript = Handlebars.compile(currentTemplate);
+foreTempScript = Handlebars.compile(forecastTemplate);
+foreInnTempScript = Handlebars.compile(foreInnerTemplate);
+
+
+//------------------------------
+// BUTTON CLICK
+//------------------------------
 
 // When GO button is clicked
 $("#button").click( function(event){
 	event.preventDefault();
 
 	//Get CITY input
-	city = $("#input_city").val();
+	context.city = $("#input_city").val();
+
 	//Get STATE input
-	state = $("#input_state").val();
+	context.state = $("#input_state").val();
 
 	// If both CITY and STATE input
 	// are filled out, then update weather 
-	if (city !== '' && state !== '') {
+	if (context.city !== '' && context.state !== '') {
 
 		$("#input_city").val('');
 		$("#input_state").val('');
@@ -126,13 +143,13 @@ $("#button").click( function(event){
 		getWeather();
 
 		// if STATE input is empty, alert user
-	} else if ( state === '' ) {
+	} else if ( context.state === '' ) {
 
 		$("#input_state").css("border", "solid 2px #CC0000").focus();
 		$("#input_city").css("border", "2px inset");
 
 		// if CITY input is empty, alert user
-	} else if ( city === '' ) {
+	} else if ( context.city === '' ) {
 
 		$("#input_city").css("border", "solid 2px #CC0000").focus();
 		$("#input_state").css("border", "2px inset");

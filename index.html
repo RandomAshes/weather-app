@@ -7,6 +7,28 @@
 	<link href='https://fonts.googleapis.com/css?family=Exo:400,300,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/main.css">
+
+	<script src="js/handlebars-v4.0.5.js"></script>
+
+	<script id="current_content" type="text/x-handlebars-template">
+     	<h3>Today&#39;s Weather:</h3>
+			<h1> {{city}} , {{state}} </h1>
+			<h3>{{day}} {{time}}</h3>
+			<img id="weatherImage" src="{{icon}}">
+			<p>{{weather}}</p>
+	</script>
+
+	<script id="forecast_content" type="text/x-handlebars-template">
+			<h3>Forecast for the next 10 days:</h3>
+			<div id="scrollBox"></div>
+	</script>
+	
+	<script id="forecast_inner" type="text/x-handlebars-template">
+			<h3>{{day}}</h3>
+			<img id="weatherImage" src="{{icon}}">
+			<p>{{weather}}</p>
+	</script>
+
 </head>
 <body class="wrap">
 
