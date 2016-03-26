@@ -27,7 +27,6 @@ var currHTML;
 // UPDATE WEATHER
 //------------------------------
 
-
 // Get Weather Function
 function getWeather() {
 
@@ -99,12 +98,12 @@ foreInnerTemplate = $('#forecast_inner').html();
 
 // Object API variables will go in
 context = { 
-"city": "", 
-"state": "",
-"day": "",
-"time": "",
-"weather": ""
-};
+		"city": "", 
+		"state": "",
+		"day": "",
+		"time": "",
+		"weather": ""
+		};
 
 // Compile the templates' data into a function
 currTempScript = Handlebars.compile(currentTemplate);
@@ -143,9 +142,15 @@ $("#button").click( function(event){
 
 		getWeather();
 
+		// if STATE and CITY are empty , alert user
+	} else if (context.city === '' && context.state === '') {
+
+		$("#input_state").css("border", "solid 2px #CC0000").focus();
+		$("#input_city").css("border", "solid 2px #CC0000").focus();
+
 		// if STATE input is empty, alert user
 	} else if ( context.state === '' ) {
-
+	
 		$("#input_state").css("border", "solid 2px #CC0000").focus();
 		$("#input_city").css("border", "2px inset");
 
