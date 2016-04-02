@@ -25,12 +25,22 @@ header h1 {
 	font-size: 1.5em;
 }
 
+/* Input form */
+
 form {
 	margin-bottom: 15px;
 }
 
 input {
 	padding-left: 10px;
+}
+
+.border-default {
+	border: 2px inset;
+}
+
+.border-alert {
+	border: solid 2px #CC0000;
 }
 
 /* MAIN */
