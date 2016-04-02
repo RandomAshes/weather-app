@@ -132,8 +132,8 @@ $("#button").click( function(event){
 		$("#input_city").val('');
 		$("#input_state").val('');
 
-		$("#input_city").css("border", "2px inset");
-		$("#input_state").css("border", "2px inset");
+		$("#input_city").addClass('border-default').removeClass('border-alert');
+		$("#input_state").addClass('border-default').removeClass('border-alert');
 
 		// Clear HTML Weather info
 		//if there is any
@@ -145,20 +145,20 @@ $("#button").click( function(event){
 	// if STATE and CITY are empty , alert user
 	} else if (context.city === '' && context.state === '') {
 
-		$("#input_state").css("border", "solid 2px #CC0000").focus();
-		$("#input_city").css("border", "solid 2px #CC0000").focus();
-
+		$("#input_city").addClass('border-alert').removeClass('border-default').focus();
+		$("#input_state").addClass('border-alert').removeClass('border-default');
+		
 	// if STATE input is empty, alert user
 	} else if ( context.state === '' ) {
 	
-		$("#input_state").css("border", "solid 2px #CC0000").focus();
-		$("#input_city").css("border", "2px inset");
+		$("#input_city").addClass('border-default').removeClass('border-alert');
+		$("#input_state").addClass('border-alert').removeClass('border-default').focus();
 
 	// if CITY input is empty, alert user
 	} else if ( context.city === '' ) {
 
-		$("#input_city").css("border", "solid 2px #CC0000").focus();
-		$("#input_state").css("border", "2px inset");
+		$("#input_city").addClass('border-alert').removeClass('border-default').focus();
+		$("#input_state").addClass('border-default').removeClass('border-alert');
 	}
 });
 
